@@ -1,70 +1,80 @@
+
+ let score={human:0,computer:0,tie:0};
  function getComputerChoice(){
    let comp=Math.floor(Math.random()*3+1);
     if(comp===1){
         return "Rock"
     }
-    else if(comp===2){
+    if(comp===2){
         return "Paper"
     }
-    else if(comp===3){
+    if(comp===3){
         return "Scissors"
     }
  }
-console.log(getComputerChoice());
-
 
 function getHumanChoice(){
-    let humanChoice=prompt("Enter a number between 1 & 3 to make a choice")
+    let humanChoice=prompt("Make your choice? 1=Rock,2=Paper,3=Scissors")
    if (isNaN(humanChoice) || humanChoice <= 0 || humanChoice > 3) {
-  return "Enter a valid number";
+  return "Invalid";
    }
-    else if(humanChoice==1){
+    if(humanChoice==1){
         return "Rock";
     }
-    else if(humanChoice==2){
+    if(humanChoice==2){
         return "Paper";
     }
-    else if(humanChoice==3){
+    if(humanChoice==3){
         return "Scissors";
     }
-}
- console.log(getHumanChoice())
+} 
 
- function playRound(humanChoice, computerChoice) {
-   function getComputerChoice(){
-   let comp=Math.floor(Math.random()*3+1);
-    if(comp===1){
-        return "Rock"
+ let count=1;
+ function playRound() {
+const humanSelection=getHumanChoice();
+if (humanSelection === "Invalid") {
+        return "Please enter a valid number between 1 and 3.";
     }
-    else if(comp===2){
-        return "Paper"
+const computerSelection=getComputerChoice();
+
+//console.log("Human chose:"+humanSelection);
+//console.log("computer chose:"+computerSelection);
+
+    if (humanSelection===computerSelection) {
+        score.tie ++;
+
     }
-    else if(comp===3){
-        return "Scissors"
-    }
+
+   else if ((humanSelection=="Rock" && computerSelection=="Scissors")||
+    (humanSelection=="Scissor" && computerSelection=="Paper")||
+    (humanSelection=="Paper" && computerSelection=="Rock")
+    ){
+        score.human ++;
+    ;
+   } 
+   else{
+    score.computer ++;
+   }
  }
-console.log(getComputerChoice());
+ 
+ while (count<5){
+    playRound();
+    count++
+   
+ }
+ 
+ console.log(playRound());
+ console.log("Number of Rounds:"+(score.human+score.computer+score.tie));
+ console.log("Your score:"+score.human);
+console.log("Computer's score:"+score.computer);
+console.log("Number of ties:" +score.tie);
 
-
-function getHumanChoice(){
-    let humanChoice=prompt("Enter a number between 1 & 3 to make a choice")
-   if (isNaN(humanChoice) || humanChoice <= 0 || humanChoice > 3) {
-  return "Enter a valid number";
-   }
-    else if(humanChoice==1){
-        return "Rock";
-    }
-    else if(humanChoice==2){
-        return "Paper";
-    }
-    else if(humanChoice==3){
-        return "Scissors";
-    }
-}
- console.log(getHumanChoice())
-}
-
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-
-playRound(humanSelection, computerSelection);
+ if(score.human>score.computer){
+console.log("congratulations! You win");
+ }
+ if(score.human<score.computer){
+console.log("Oops!You lost it");
+ }
+ if(score.human===score.computer){
+console.log("You both tie");
+  }
